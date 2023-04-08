@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { createTheme, FormControl, MenuItem, Select, ThemeProvider } from "@mui/material";
-import { Box } from "@mui/system";
+import Box from "@mui/material/Box";
 
 const theme = createTheme({
   palette: {
