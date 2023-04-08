@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import CoinSelector from "./components/CoinSelector";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container maxWidth="sm" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', }}>
+      <Box sx={{ width: '100%', height: '100%',  backgroundImage: 'linear-gradient(to top, #1b3562 0%, #261e3e 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <CoinSelector />
+      </Box>
+    </Container>
   );
 }
 
 export default App;
+
