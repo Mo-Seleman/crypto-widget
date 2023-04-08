@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React, { useContext } from "react";
+import { Context } from "../App.js";
 import { createTheme, FormControl, MenuItem, Select, ThemeProvider } from "@mui/material";
 import Box from "@mui/material/Box";
 
@@ -13,7 +13,8 @@ const theme = createTheme({
 });
 
 export default function CoinSelector() {
-  const [crypto, setCrypto] = useState("");
+
+  const [crypto, setCrypto] = useContext(Context);
 
   const handleChange = (event) => {
     setCrypto(event.target.value);
@@ -30,7 +31,6 @@ export default function CoinSelector() {
            style={{ 
             border: '2px solid #1b7798',
             borderRadius: '30px',
-            fontWeight: 'bold',
             padding: '5px 10px 5px 10px',
             }}
            sx={{
@@ -43,8 +43,8 @@ export default function CoinSelector() {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value="Etherium-ETH">ETHERIUM - ETH</MenuItem>
-            <MenuItem value="Bitcoin-BTC">BITCOIN - BTC</MenuItem>
+            <MenuItem value="Etherium - ETH">ETHERIUM - ETH</MenuItem>
+            <MenuItem value="Bitcoin - BTC">BITCOIN - BTC</MenuItem>
           </Select>
         </ThemeProvider>
       </FormControl>
