@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../App.js";
+import { CryptoContext, CurrencyContext } from "../App.js";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 
 export default function MainDisplay() {
-  const[ crypto ] = useContext(Context);
+  const [crypto] = useContext(CryptoContext);
 
   //**  Fetch GBP & USD Price Of Etherium  **//
   const [etheriumGbpPrice, setEtheriumGbpPrice] = useState("");
@@ -14,9 +14,9 @@ export default function MainDisplay() {
     fetch("https://api.coinpaprika.com/v1/tickers/eth-ethereum?quotes=GBP,USD")
       .then((response) => response.json())
       .then((data) => {
-        const etheriumGbpPrice = data.quotes.GBP.price;
+        const etheriumGbpPrice = data.quotes.GBP.price.toFixed(2);
         setEtheriumGbpPrice(etheriumGbpPrice);
-        const etheriumUsdPrice = data.quotes.USD.price;
+        const etheriumUsdPrice = data.quotes.USD.price.toFixed(2);
         setEtheriumUsdPrice(etheriumUsdPrice);
       });
   }, []);
@@ -29,12 +29,15 @@ export default function MainDisplay() {
     fetch("https://api.coinpaprika.com/v1/tickers/btc-bitcoin?quotes=GBP,USD")
       .then((response) => response.json())
       .then((data) => {
-        const bitcoinGbpPrice = data.quotes.GBP.price;
+        const bitcoinGbpPrice = data.quotes.GBP.price.toFixed(2);
         setBitcoinGbpPrice(bitcoinGbpPrice);
-        const bitcoinUsdPrice = data.quotes.USD.price;
+        const bitcoinUsdPrice = data.quotes.USD.price.toFixed(2);
         setBitcoinUsdPrice(bitcoinUsdPrice);
       });
   }, []);
+
+  /** Currency Symbol **/
+  const { currency } = useContext(CurrencyContext);
 
   return (
     <Box
@@ -43,6 +46,7 @@ export default function MainDisplay() {
         minWidth: "400px",
         backgroundImage: "linear-gradient(135deg, #fd79b3 0%, #fd9c9d 100%)",
         borderRadius: "10px",
+        marginTop: "10px",
       }}
     >
       <Box
@@ -64,23 +68,26 @@ export default function MainDisplay() {
         <Box>
           <Typography>{crypto}</Typography>
         </Box>
-            <Box>
-                {crypto === 'Etherium - ETH' ? (
-                   <p>{etheriumGbpPrice}</p>
-                 ) : crypto === 'Bitcoin - BTC' ?
-                  (<p>{bitcoinGbpPrice}</p>) : null
-                  } 
-            </Box>
+        <Box style={{
+          display: "flex",
+          fontSize: 50,
+        }}>
+        <Box style={{padding: '7px 4px 0 0', fontWeight: 700}}>{currency === "GBP" ? "£" : "$"}</Box>
+        <Box
+          style={{
+            fontSize: 50,
+            fontWeight: 700,
+            padding: "7px 0 55px 0",
+          }}
+        >
+          {crypto === "Etherium - ETH" ? (
+            <p>{etheriumGbpPrice}</p>
+          ) : crypto === "Bitcoin - BTC" ? (
+            <p>{bitcoinGbpPrice}</p>
+          ) : null}
+        </Box>
         </Box>
       </Box>
+    </Box>
   );
 }
-
-// //** {{ crypto } == "Etherium - ETH" ? (
-//     <p>{etheriumGbpPrice}</p>
-//     ) : { crypto } == "Bitcoin - BTC" ? (
-//       <p>{bitcoinGbpPrice}</p>
-//     ) : (
-//       <p>No price available for {crypto}</p>
-//     )} **//
-

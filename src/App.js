@@ -2,18 +2,25 @@ import React, { useState } from "react";
 import CoinSelector from "./components/CoinSelector";
 import Box from "@mui/material/Box";
 import MainDisplay from "./components/MainDisplay";
+import Buttons from "./components/Buttons";
 
-export const Context = React.createContext();
+export const CryptoContext = React.createContext();
+export const CurrencyContext = React.createContext();
 
 function App() {
   const [crypto, setCrypto] = useState("");
+  const [currency, setCurrency] = useState("GBP");
+
+  const handleCurrencyChange = (newCurrency) => {
+    setCurrency(newCurrency);
+  };
 
   return (
     <Box
       sx={{
         typography: {
           fontFamily: "Roboto, sans-serif",
-          textTransform: 'uppercase',
+          textTransform: "uppercase",
         },
         width: "100%",
         height: "100%",
@@ -24,10 +31,13 @@ function App() {
         justifyContent: "center",
       }}
     >
-      <Context.Provider value={[crypto, setCrypto]}>
-        <CoinSelector />
-        <MainDisplay />
-      </Context.Provider>
+      <CryptoContext.Provider value={[crypto, setCrypto]}>
+        <CurrencyContext.Provider value={{ currency, handleCurrencyChange }}>
+          <CoinSelector />
+          <MainDisplay />
+          <Buttons />
+        </CurrencyContext.Provider>
+      </CryptoContext.Provider>
     </Box>
   );
 }

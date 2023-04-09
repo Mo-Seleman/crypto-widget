@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Context } from "../App.js";
+import { CryptoContext } from "../App.js";
 import { createTheme, FormControl, MenuItem, Select, ThemeProvider } from "@mui/material";
 import Box from "@mui/material/Box";
 
@@ -14,7 +14,7 @@ const theme = createTheme({
 
 export default function CoinSelector() {
 
-  const [crypto, setCrypto] = useContext(Context);
+  const [crypto, setCrypto] = useContext(CryptoContext);
 
   const handleChange = (event) => {
     setCrypto(event.target.value);
@@ -29,9 +29,10 @@ export default function CoinSelector() {
            onChange={handleChange}
            displayEmpty
            style={{ 
-            border: '2px solid #1b7798',
+            border: '3px solid #2eaec8',
             borderRadius: '30px',
-            padding: '5px 10px 5px 10px',
+            padding: '2px 10px 2px 10px',
+            minWidth: '400px'
             }}
            sx={{
             color: theme.palette.primary.main,
