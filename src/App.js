@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CoinSelector from "./components/CoinSelector";
 import Box from "@mui/material/Box";
 import MainDisplay from "./components/MainDisplay";
@@ -8,12 +8,28 @@ export const CryptoContext = React.createContext();
 export const CurrencyContext = React.createContext();
 
 function App() {
-  const [crypto, setCrypto] = useState("");
-  const [currency, setCurrency] = useState("GBP");
+  const [crypto, setCrypto] = useState(() => {
+    const storedCrypto = localStorage.getItem('COIN_PREFERENCE');
+    return storedCrypto !== null ? JSON.parse(storedCrypto) : "Etherium - ETH";
+  });
+
+  const [currency, setCurrency] = useState(() => {
+    const storedCurrency = localStorage.getItem('CURRENCY_PREFERENCE');
+    return storedCurrency !== null ? JSON.parse(storedCurrency) : "GBP";
+  });
 
   const handleCurrencyChange = (newCurrency) => {
     setCurrency(newCurrency);
   };
+
+  /** Local Storage **/
+  useEffect(() => {
+    window.localStorage.setItem("COIN_PREFERENCE", JSON.stringify(crypto));
+  }, [crypto]);
+
+  useEffect(() => {
+    window.localStorage.setItem("CURRENCY_PREFERENCE", JSON.stringify(currency));
+  }, [currency]);
 
   return (
     <Box

@@ -3,11 +3,9 @@ import React from "react";
 import { useContext } from "react";
 import { CurrencyContext } from "../App";
 
-/** Handle Currency Change and Currency Need To Be Imported In Here **/
 
 export default function Buttons() {
   const { currency, handleCurrencyChange } = useContext(CurrencyContext);
-
   return (
     <Box
       style={{

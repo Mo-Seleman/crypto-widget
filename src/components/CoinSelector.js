@@ -13,8 +13,7 @@ const theme = createTheme({
 });
 
 export default function CoinSelector() {
-
-  const [crypto, setCrypto] = useContext(CryptoContext);
+const [crypto, setCrypto] = useContext(CryptoContext);
 
   const handleChange = (event) => {
     setCrypto(event.target.value);
