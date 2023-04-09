@@ -1,43 +1,53 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CryptoContext, CurrencyContext } from "../App.js";
 import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
-import SvgComponent from "../assets/refreshSVG.js"
-
+import { Button, Typography } from "@mui/material";
+import SvgComponent from "../assets/refreshSVG.js";
 
 export default function MainDisplay() {
   const [crypto] = useContext(CryptoContext);
 
   //**  Fetch GBP & USD Price Of Etherium  **//
-  const [etheriumGbpPrice, setEtheriumGbpPrice] = useState("");
-  const [etheriumUsdPrice, setEtheriumUsdPrice] = useState("");
+  const [etheriumGbpPrice, setEtheriumGbpPrice] = useState(null);
+  const [etheriumUsdPrice, setEtheriumUsdPrice] = useState(null);
 
   useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/tickers/eth-ethereum?quotes=GBP,USD")
-      .then((response) => response.json())
-      .then((data) => {
-        const etheriumGbpPrice = data.quotes.GBP.price.toFixed(2);
-        setEtheriumGbpPrice(etheriumGbpPrice);
-        const etheriumUsdPrice = data.quotes.USD.price.toFixed(2);
-        setEtheriumUsdPrice(etheriumUsdPrice);
-      });
+    fetchEthData();
   }, []);
+
+  const fetchEthData = async () => {
+    const response = await fetch(
+      "https://api.coinpaprika.com/v1/tickers/eth-ethereum?quotes=GBP,USD"
+    );
+    const data = await response.json();
+    const etheriumGbpPrice = data.quotes.GBP.price.toFixed(2);
+    setEtheriumGbpPrice(etheriumGbpPrice);
+    const etheriumUsdPrice = data.quotes.USD.price.toFixed(2);
+    setEtheriumUsdPrice(etheriumUsdPrice);
+  };
 
   //**  Fetch GBP & USD Price Of BitCoin  **//
   const [bitcoinGbpPrice, setBitcoinGbpPrice] = useState("");
   const [bitcoinUsdPrice, setBitcoinUsdPrice] = useState("");
 
   useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/tickers/btc-bitcoin?quotes=GBP,USD")
-      .then((response) => response.json())
-      .then((data) => {
-        const bitcoinGbpPrice = data.quotes.GBP.price.toFixed(2);
-        setBitcoinGbpPrice(bitcoinGbpPrice);
-        const bitcoinUsdPrice = data.quotes.USD.price.toFixed(2);
-        setBitcoinUsdPrice(bitcoinUsdPrice);
-      });
+    fetchBtcData();
   }, []);
+  
+  const fetchBtcData = async () => {
+    const response = await fetch("https://api.coinpaprika.com/v1/tickers/btc-bitcoin?quotes=GBP,USD");
+    const data = await response.json();
+    const bitcoinGbpPrice = data.quotes.GBP.price.toFixed(2);
+    setBitcoinGbpPrice(bitcoinGbpPrice);
+    const bitcoinUsdPrice = data.quotes.USD.price.toFixed(2);
+    setBitcoinUsdPrice(bitcoinUsdPrice);
+  };
 
+  /**  Refresh Button **/
+const handleRefreshButton = () => {
+    fetchEthData()
+    fetchBtcData()
+};
   /** Currency Symbol **/
   const { currency } = useContext(CurrencyContext);
 
@@ -57,7 +67,9 @@ export default function MainDisplay() {
           justifyContent: "flex-end",
         }}
       >
-         <SvgComponent/>
+      <Button onClick={handleRefreshButton}>
+        <SvgComponent />
+      </Button>
       </Box>
       <Box
         style={{
