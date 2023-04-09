@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { CryptoContext, CurrencyContext } from "../App.js";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
+import SvgComponent from "../assets/refreshSVG.js"
+
 
 export default function MainDisplay() {
   const [crypto] = useContext(CryptoContext);
@@ -55,7 +57,7 @@ export default function MainDisplay() {
           justifyContent: "flex-end",
         }}
       >
-        Refresh Button
+         <SvgComponent/>
       </Box>
       <Box
         style={{
