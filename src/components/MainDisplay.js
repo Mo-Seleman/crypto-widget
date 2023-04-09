@@ -68,24 +68,35 @@ export default function MainDisplay() {
         <Box>
           <Typography>{crypto}</Typography>
         </Box>
-        <Box style={{
-          display: "flex",
-          fontSize: 50,
-        }}>
-        <Box style={{padding: '7px 4px 0 0', fontWeight: 700}}>{currency === "GBP" ? "£" : "$"}</Box>
         <Box
           style={{
+            display: "flex",
             fontSize: 50,
-            fontWeight: 700,
-            padding: "7px 0 55px 0",
           }}
         >
-          {crypto === "Etherium - ETH" ? (
-            <p>{etheriumGbpPrice}</p>
-          ) : crypto === "Bitcoin - BTC" ? (
-            <p>{bitcoinGbpPrice}</p>
-          ) : null}
-        </Box>
+          <Box style={{ padding: "7px 4px 0 0", fontWeight: 700 }}>
+            {currency === "GBP" ? "£" : "$"}
+          </Box>
+          <Box
+            style={{
+              fontSize: 50,
+              fontWeight: 700,
+              padding: "7px 0 55px 0",
+            }}
+          >
+            {crypto === "Etherium - ETH" && currency === "GBP" && (
+              <p>{etheriumGbpPrice}</p>
+            )}
+            {crypto === "Etherium - ETH" && currency === "USD" && (
+              <p>{etheriumUsdPrice}</p>
+            )}
+            {crypto === "Bitcoin - BTC" && currency === "GBP" && (
+              <p>{bitcoinGbpPrice}</p>
+            )}
+            {crypto === "Bitcoin - BTC" && currency === "USD" && (
+              <p>{bitcoinUsdPrice}</p>
+            )}
+          </Box>
         </Box>
       </Box>
     </Box>
