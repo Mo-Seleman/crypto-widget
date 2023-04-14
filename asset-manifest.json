@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/crypto-widget/static/js/main.0393597c.js",
+    "index.html": "/crypto-widget/index.html",
+    "main.0393597c.js.map": "/crypto-widget/static/js/main.0393597c.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.0393597c.js"
+  ]
+}
